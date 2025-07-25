@@ -108,3 +108,42 @@ if height >= 145:
     print('you are tall enough to ride')
 else:
     print('You are too short')
+
+##############################################
+#non mandatory exercises
+
+# Exercise 1 : Hello World-I love Python
+# Instructions
+# Print the following output in one line of code:
+
+# Hello world
+# Hello world
+# Hello world
+# Hello world
+# I love python
+# I love python
+# I love python
+# I love python
+
+print('hello world\nhello world\nhelloworld\nhello world\nI love python\nI love python\nI love python\nI love python')
+
+
+# Exercise 2 : What is the Season ?
+# Instructions
+# Ask the user to input a month (1 to 12).
+# Display the season of the month received :
+# Spring runs from March (3) to May (5)
+# Summer runs from June (6) to August (8)
+# Autumn runs from September (9) to November (11)
+# Winter runs from December (12) to February (2)
+
+month = int(input('enter a month (1-12): '))
+
+if month >= 3 and month <= 5:
+    print('spring')
+elif month >= 6 and month <= 8:
+    print('summer')
+elif month >= 9 and month <= 11:
+    print('autumn')
+else:
+    print('winter')
