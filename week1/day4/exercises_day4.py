@@ -41,6 +41,8 @@ print(our_fav_numbers)
 # Given a tuple of integers, try to add more integers to the tuple.
 # Hint: Tuples are immutable, meaning they cannot be changed after creation. Think about why you can’t add more integers to a tuple.
 
+# we cannot add more integeres to rhe tuple 
+
 
 # 🌟 Exercise 3: List Manipulation
 # Key Python Topics:
