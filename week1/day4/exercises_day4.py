@@ -92,6 +92,14 @@ print('emptied the basket:', basket)
 # Avoid hard-coding each number manually.
 # Think: Can you generate this sequence using a loop or another method?
 
+list = []
+value = 1.5
+
+while value <= 5:
+    list.append(value)
+    value += 0.5
+
+print(list)
 
 # 🌟 Exercise 5: For Loop
 # Key Python Topics:
