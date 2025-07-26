@@ -50,7 +50,6 @@ print(our_fav_numbers)
 # Lists
 # List methods: append, remove, insert, count, clear
 
-
 # Instructions:
 
 # You have a list: basket = ["Banana", "Apples", "Oranges", "Blueberries"]
@@ -62,6 +61,20 @@ print(our_fav_numbers)
 # Empty the list.
 # Print the final state of the list.
 
+basket = ["Banana", "Apples", "Oranges", "Blueberries"]
+print(basket)
+basket.remove("Banana")
+print('Banana removed', basket)
+basket.remove("Blueberries")
+print('blueberries removed', basket)
+basket.append("Kiwi")
+print('added kiwi at the end of the list', basket)
+basket.insert( 0, 'Apples')
+print('added apples at the begining of the list', basket)
+apples_count = basket.count('Apples')
+print('number of apples: ', apples_count)
+basket.clear()
+print('emptied the basket:', basket)
 
 # 🌟 Exercise 4: Floats
 # Key Python Topics:
