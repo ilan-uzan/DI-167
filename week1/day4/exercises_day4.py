@@ -161,6 +161,17 @@ else:
 # If not, print:
 # "You chose a new fruit. I hope you enjoy it!"
 
+favFruits = str(input('Enter your favourite fruits seperated by spaces: ')) #Banana Apple Pear
+favFruits.split()
+
+aFruit = str(input('Input the name of a fruit: '))
+
+if aFruit in favFruits:
+    print('You chose one of your favorite fruits! Enjoy!')
+else:
+    print('You chose a new fruit. I hope you enjoy it!')
+
+
 
 # 🌟 Exercise 8: Pizza Toppings
 # Key Python Topics:
