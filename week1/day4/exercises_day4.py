@@ -113,6 +113,13 @@ print(list)
 # Write a for loop to print all numbers from 1 to 20, inclusive.
 # Write another for loop that prints every number from 1 to 20 where the index is even.
 
+for i in range(1, 21):
+    print(i)
+
+for i in range(2, 21):
+    if i % 2 == 0:
+        print(i)
+
 
 # 🌟 Exercise 6: While Loop
 # Key Python Topics:
@@ -125,6 +132,15 @@ print(list)
 
 # Write a while loop that keeps asking the user to enter their name.
 # Stop the loop if the user’s input is your name.
+
+name = 'ilan'
+user = str(input('Enter your first guess: '))
+           
+while user != name:
+    user = str(input('Enter your guess: '))
+else:
+    print('We have the same name')
+
 
 
 # 🌟 Exercise 7: Favorite Fruits
