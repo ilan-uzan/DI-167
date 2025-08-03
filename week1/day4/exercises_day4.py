@@ -302,3 +302,21 @@ print(f'total teens who can watch: {len(teenagers)}')
 # Prepare each sandwich, one by one, and move them to a list called finished_sandwiches.
 # Print a message for each sandwich made, such as: "I made your Tuna sandwich."
 # Print the final list of all finished sandwiches.
+
+sandwich_orders = ["Tuna", "Pastrami", "Avocado", "Pastrami", "Egg", "Chicken", "Pastrami"]
+
+#remove pastrami from the list
+while "Pastrami" in sandwich_orders:
+    sandwich_orders.remove("Pastrami")
+
+#create a new list
+finished_sandwiches = []
+#transfer sandwiches to the new list
+while sandwich_orders:
+    current_sandwiches = sandwich_orders.pop(0)
+    print(f'I made your {current_sandwiches} sandwich')
+    finished_sandwiches.append(current_sandwiches)
+
+print('\nAll sandwiches made: ')
+for sandwich in finished_sandwiches:
+    print(f'- {sandwich}')
