@@ -190,6 +190,33 @@ else:
 # After exiting the loop, print all the toppings and the total cost of the pizza.
 # The base price is $10, and each topping adds $2.50.
 
+toppings = []
+basePrice = 10
+toppingPrice = 2.5
+numOfToppings = 0
+
+print('Enter your toppings. Write quit to get out')
+input = str(input('Add Topping'))
+
+while (input != 'quit'):
+    toppings.append(input)
+    print(f'Adding {input} to your pizza')
+    input = input('Add Topping: ')
+
+output = 'Your toppings are: '
+for topping in toppings:
+    output.append(topping + ' ')
+    numOfToppings += 1
+
+
+totalCost = (basePrice + (toppingPrice * numOfToppings))
+output.append(f'Your total cost is: {totalCost}')
+
+print(output)
+
+    
+
+
 
 # 🌟 Exercise 9: Cinemax Tickets
 # Key Python Topics:
@@ -207,6 +234,25 @@ else:
 # $10 for people aged 3 to 12.
 # $15 for anyone over 12.
 # Print the total ticket cost.
+
+#first lets figure out how many people they have in their fam
+num_people = int(input('how many people in your family? '))
+#initial cost
+total_cost = 0
+#loop for the price per age of each person 
+if i in range(num_people):
+    age = int(input(f'Enter your age #{i+1}: '))
+
+    if age < 3:
+        ticket_price = 0
+    elif age >= 3 and age < 12:
+        ticket_price = 10
+    else:
+        ticket_price = 15
+    
+    ticket_price += total_cost
+
+    print('Total ticket cost: , total_cost')
 
 
 # Bonus:
