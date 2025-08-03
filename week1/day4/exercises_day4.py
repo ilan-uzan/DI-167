@@ -196,13 +196,13 @@ toppingPrice = 2.5
 numOfToppings = 0
 
 print('Enter your toppings. Write quit to get out')
-input = str(input('Add Topping'))
+user_input = (input('Add Topping: '))
 
 while (input != 'quit'):
     toppings.append(input)
     print(f'Adding {input} to your pizza')
-    input = input('Add Topping: ')
-
+    user_input = input('Add Topping: ')
+    
 output = 'Your toppings are: '
 for topping in toppings:
     output.append(topping + ' ')
