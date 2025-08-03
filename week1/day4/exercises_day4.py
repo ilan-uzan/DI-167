@@ -191,29 +191,29 @@ else:
 # The base price is $10, and each topping adds $2.50.
 
 ################################################
-# toppings = []
-# basePrice = 10
-# toppingPrice = 2.5
-# numOfToppings = 0
+toppings = []
+basePrice = 10
+toppingPrice = 2.5
+numOfToppings = 0
 
-# print('Enter your toppings. Write quit to get out')
-# user_input = (input('Add Topping: '))
+print('Enter your toppings. Write quit to get out')
+user_input = (input('Add Topping: '))
 
-# while (input != 'quit'):
-#     toppings.append(input)
-#     print(f'Adding {input} to your pizza')
-#     user_input = input('Add Topping: ')
+while (input != 'quit'):
+    toppings.append(input)
+    print(f'Adding {input} to your pizza')
+    user_input = input('Add Topping: ')
 
-# output = 'Your toppings are: '
-# for topping in toppings:
-#     output.append(topping + ' ')
-#     numOfToppings += 1
+output = 'Your toppings are: '
+for topping in toppings:
+    output.append(topping + ' ')
+    numOfToppings += 1
 
 
-# totalCost = (basePrice + (toppingPrice * numOfToppings))
-# output.append(f'Your total cost is: {totalCost}')
+totalCost = (basePrice + (toppingPrice * numOfToppings))
+output.append(f'Your total cost is: {totalCost}')
 
-# print(output)
+print(output)
 
   ##############################################  
 
