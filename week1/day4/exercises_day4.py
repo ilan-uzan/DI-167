@@ -264,6 +264,29 @@ for i in range(num_people):
 # Remove anyone who isn’t allowed to watch.
 # Print the final list of attendees.
 
+#find out how many people
+num_teenagers = int(input('How many of you are watching the movie? '))
+#store the teenagers in a list
+teenagers = []
+#for loop to add eligible teenagers to the list
+for i in range(num_teenagers):
+    age = int(input(f'how old are you #{i+1}? '))
+
+    if 16 <= age <= 21:
+        teenagers.append(age) #add to the list
+    else:
+        print('sorry only people aged between 16 and 21 can watch')
+
+print('\nfinal list of teens: ')
+print(teenagers)
+print(f'total teens who can watch: {len(teenagers)}')
+
+
+
+
+
+
+
 # 🌟 Exercise 10: Sandwich Orders
 # Key Python Topics:
 
