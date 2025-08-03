@@ -241,19 +241,19 @@ num_people = int(input('how many people in your family? '))
 #initial cost
 total_cost = 0
 #loop for the price per age of each person 
-if i in range(num_people):
+for i in range(num_people):
     age = int(input(f'Enter your age #{i+1}: '))
 
     if age < 3:
         ticket_price = 0
-    elif age >= 3 and age < 12:
+    elif 3 <= age <= 12:
         ticket_price = 10
     else:
         ticket_price = 15
     
-    ticket_price += total_cost
+    total_cost += ticket_price
 
-    print('Total ticket cost: , total_cost')
+    print('Total ticket cost: ', total_cost)
 
 
 # Bonus:
