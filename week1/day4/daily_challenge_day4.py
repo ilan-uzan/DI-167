@@ -19,10 +19,25 @@
 # 2. Create a program that generates a list of multiples of the given number.
 # 3. The list should stop when it reaches the length specified by the user.
 
-number = int(input('Enter a number: '))
-length = int(input('enter a lenght: '))
+number = int(input('Enter a number: ')) # 2
+length = int(input('enter a lenght: ')) # 7
+#output: 7, 14, 21, 28, 35
+
+list = []
+increment = 1
+while increment <= length:
+    #add to list
+    calculartion = number * increment
+    list.append(calculartion)
+    increment += 1
+
+print(f'Number: ', number)
+print(f'Length: ', length)
+print(f'Output: ', list)
 
 
+
+    
 
 # Example 1:
 
