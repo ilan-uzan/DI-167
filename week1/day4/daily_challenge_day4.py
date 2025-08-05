@@ -94,6 +94,15 @@ print(f'Output: ', list)
 # For example, “ppoeemm” should become “poem” (removes consecutive duplicates like ‘pp’, ‘ee’, and ‘mm’).
 # 3. The program should print the modified string.
 
+string = str(input('Enter a string: ', ))
+
+for i in string:
+    #is it a duplicate:
+        #remove it 
+    if i == 
+    string.remove(i)
+
+#print the result
 
 
 # Example 1:
