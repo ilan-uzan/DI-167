@@ -13,9 +13,17 @@
 
 # Lists:
 
-# keys = ['Ten', 'Twenty', 'Thirty']
-# values = [10, 20, 30]
+keys = ['Ten', 'Twenty', 'Thirty']
+values = [10, 20, 30]
 
+#concatenatw the lists
+
+new_list = zip(keys, values)
+print(list(new_list))
+
+#convert the list into a dictionary
+my_dict = dict(zip(keys, values))
+print(my_dict)
 
 # Expected Output:
 
