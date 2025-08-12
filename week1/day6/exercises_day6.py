@@ -51,7 +51,19 @@ print(my_dict)
 
 # Family Data:
 
-# family = {"rick": 43, 'beth': 13, 'morty': 5, 'summer': 8}
+family = {"rick": 43, 'beth': 13, 'morty': 5, 'summer': 8}
+
+age = {int}
+price = []
+
+for age in family:
+    if age < 3:
+        price = 0
+    elif 3 < age > 12:
+        price = 10:
+    else age >= 12:
+        price = 15
+
 
 
 # Loop through the family dictionary to calculate the total cost.
@@ -63,7 +75,8 @@ print(my_dict)
 
 # Allow the user to input family members’ names and ages, then calculate the total ticket cost.
 
-
+name = str(input('enter your name: '))
+age = int(input('Enter your age: '))
 
 # 🌟 Exercise 3: Zara
 # Key Python Topics:
