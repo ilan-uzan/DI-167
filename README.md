@@ -15,3 +15,4 @@ The goal of this repository is to document my learning progress and provide solu
 
 All code is written as part of the official curriculum and is intended for educational purposes.
 
+i love coding and i hope to become a successful software engineer barouch hashem!
