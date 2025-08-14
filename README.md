@@ -7,7 +7,7 @@ This repository contains all homework assignments and mandatory exercises comple
 ## Structure
 
 - **week1/**: Contains daily folders with Python exercises and challenges for each day of the first week.
-	- `day1/`, `day2/`, `day4/`, `day6/`: Each folder includes class exercises, daily challenges, and practice problems.
+	- `day1/`, `day2/`, `day4/`, `day6/`, until week 28: Each folder includes class exercises, daily challenges, and practice problems.
 
 ## Purpose
 
