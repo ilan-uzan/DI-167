@@ -2,7 +2,7 @@
 -- create the table 
 
 CREATE TABLE students (
-	id INT AUTO_INCREMENT PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	first_name VARCHAR(50),
 	last_name VARCHAR(50),
 	birth_date DATE 
@@ -42,6 +42,11 @@ SELECT first_name FROM students
 WHERE first_name LIKE '%a';
 -- second to last letter is 'a' for first and last name 
 SELECT first_name, last_name FROM students
-
-
+WHERE first_name LIKE '%a_';
+-- Fetch the students whose id’s are equal to 1 AND 3 
+SELECT * FROM students
+WHERE id IN (1, 3);
+-- Fetch the students whose birth_dates are equal to or come after 1/01/2000. (show all their info)
+SELECT * FROM students
+WHERE birth_date >= '2001-01-01';
 
