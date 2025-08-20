@@ -1,16 +1,15 @@
-
 -- create the table 
 
 CREATE TABLE students (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-	first_name VARCHAR(50),
+	id SERIAL PRIMARY KEY,
 	last_name VARCHAR(50),
-	birth_date DATE 
+	first_name VARCHAR(50)
+	birthdate DATE 
 );
 
 -- insert data into the table 
 
-INSERT INTO students (first_name, last_name, birth_date) VALUES
+INSERT INTO students (first_name, last_name, birthdate) VALUES
 ('Marc', 'Benichou', '1998-11-02'),
 ('Yoan', 'Cohen', '2010-12-03'),
 ('Lea', 'Benichou', '1987-07-27'),
@@ -40,8 +39,6 @@ WHERE first_name LIKE 'a%';
 -- first name ends with 'a'
 SELECT first_name FROM students
 WHERE first_name LIKE '%a';
--- second to last letter is 'a' for first and last name 
-SELECT first_name, last_name FROM students
 
 
 
