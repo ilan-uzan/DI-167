@@ -1,47 +1,7 @@
 import psycopg2
 from psycopg2.extras import execute_values
-import requests
 import json
 import os
-import time
-
-
-HEADERS = {"User-Agent": "countries-loader/1.0 (+https://example.com)"}
-
-V3_URL = "https://restcountries.com/v3.1/all"
-V3_PARAMS = {"fields": "name,capital,cca2,region,population"}
-V2_URL = "https://restcountries.com/v2/all"  # fallback
-
-
-def fetch_countries():
-    # Try v3 first
-    try:
-        r = requests.get(V3_URL, params=V3_PARAMS, headers=HEADERS, timeout=30)
-        if r.status_code == 200:
-            # explicitly load JSON using json.loads
-            data = json.loads(r.text)
-            assert isinstance(data, list)
-            return "v3", data
-        else:
-            print("v3 request failed:", r.status_code, r.text[:200])
-    except Exception as e:
-        print("v3 exception:", e)
-
-    # Fallback to v2
-    try:
-        time.sleep(0.5)
-        r = requests.get(V2_URL, headers=HEADERS, timeout=30)
-        if r.status_code == 200:
-            data = json.loads(r.text)
-            assert isinstance(data, list)
-            return "v2", data
-        else:
-            print("v2 request failed:", r.status_code, r.text[:200])
-    except Exception as e:
-        print("v2 exception:", e)
-
-    return None, []
-
 
 def normalize_v3(obj):
     name = (obj.get("name") or {}).get("common")
@@ -54,7 +14,6 @@ def normalize_v3(obj):
         return None
     return (name, capital, code, region, population)
 
-
 def normalize_v2(obj):
     name = obj.get("name")
     capital = obj.get("capital")
@@ -65,10 +24,15 @@ def normalize_v2(obj):
         return None
     return (name, capital, code, region, population)
 
-
 # --- DB work ---
 try:
-    # Use environment variables for DB creds
+    # open the saved JSON file
+    with open("countries.json", "r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    print(f"📂 Loaded {len(payload)} countries from countries.json")
+
+    # connect using env vars or defaults
     conn = psycopg2.connect(
         database=os.getenv("PGDATABASE", "countries"),
         user=os.getenv("PGUSER", "postgres"),
@@ -90,20 +54,17 @@ try:
     """)
     conn.commit()
 
-    source, payload = fetch_countries()
-    print(f"Source used: {source or 'none'}; items: {len(payload)}")
-
+    # detect format (v3 vs v2) by checking fields
     rows = []
-    if source == "v3":
-        for obj in payload:
-            m = normalize_v3(obj)
-            if m:
-                rows.append(m)
-    elif source == "v2":
-        for obj in payload:
-            m = normalize_v2(obj)
-            if m:
-                rows.append(m)
+    if payload and isinstance(payload, list):
+        if "cca2" in payload[0]:  # v3 format
+            for obj in payload:
+                m = normalize_v3(obj)
+                if m: rows.append(m)
+        else:  # assume v2 format
+            for obj in payload:
+                m = normalize_v2(obj)
+                if m: rows.append(m)
 
     print(f"🌍 Prepared rows: {len(rows)}")
 
@@ -124,7 +85,7 @@ try:
     cur.execute("SELECT COUNT(*) FROM countries;")
     print("📦 Total rows in countries:", cur.fetchone()[0])
 
-    # sample verify
+    # sample preview
     cur.execute("SELECT country_name, capital, flag_code FROM countries ORDER BY country_name LIMIT 10;")
     for r in cur.fetchall():
         print(r)
