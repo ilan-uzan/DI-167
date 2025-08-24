@@ -1,21 +1,25 @@
 import psycopg2
 from psycopg2.extras import execute_values
 import requests
+import json
+import os
 import time
+
 
 HEADERS = {"User-Agent": "countries-loader/1.0 (+https://example.com)"}
 
 V3_URL = "https://restcountries.com/v3.1/all"
 V3_PARAMS = {"fields": "name,capital,cca2,region,population"}
-
 V2_URL = "https://restcountries.com/v2/all"  # fallback
+
 
 def fetch_countries():
     # Try v3 first
     try:
         r = requests.get(V3_URL, params=V3_PARAMS, headers=HEADERS, timeout=30)
         if r.status_code == 200:
-            data = r.json()
+            # explicitly load JSON using json.loads
+            data = json.loads(r.text)
             assert isinstance(data, list)
             return "v3", data
         else:
@@ -28,7 +32,7 @@ def fetch_countries():
         time.sleep(0.5)
         r = requests.get(V2_URL, headers=HEADERS, timeout=30)
         if r.status_code == 200:
-            data = r.json()
+            data = json.loads(r.text)
             assert isinstance(data, list)
             return "v2", data
         else:
@@ -37,6 +41,7 @@ def fetch_countries():
         print("v2 exception:", e)
 
     return None, []
+
 
 def normalize_v3(obj):
     name = (obj.get("name") or {}).get("common")
@@ -49,8 +54,8 @@ def normalize_v3(obj):
         return None
     return (name, capital, code, region, population)
 
+
 def normalize_v2(obj):
-    # v2 schema differs
     name = obj.get("name")
     capital = obj.get("capital")
     code = obj.get("alpha2Code")
@@ -60,14 +65,16 @@ def normalize_v2(obj):
         return None
     return (name, capital, code, region, population)
 
+
 # --- DB work ---
 try:
+    # Use environment variables for DB creds
     conn = psycopg2.connect(
-        database="countries",
-        user="postgres",
-        password="VIVELAFRANCE",
-        host="localhost",
-        port="5432"
+        database=os.getenv("PGDATABASE", "countries"),
+        user=os.getenv("PGUSER", "postgres"),
+        password=os.getenv("PGPASSWORD", "VIVELAFRANCE"),
+        host=os.getenv("PGHOST", "localhost"),
+        port=os.getenv("PGPORT", "5432")
     )
     cur = conn.cursor()
 
@@ -90,11 +97,13 @@ try:
     if source == "v3":
         for obj in payload:
             m = normalize_v3(obj)
-            if m: rows.append(m)
+            if m:
+                rows.append(m)
     elif source == "v2":
         for obj in payload:
             m = normalize_v2(obj)
-            if m: rows.append(m)
+            if m:
+                rows.append(m)
 
     print(f"🌍 Prepared rows: {len(rows)}")
 
@@ -124,7 +133,8 @@ except Exception as e:
     print("❌ Error:", e)
 finally:
     try:
-        cur.close(); conn.close()
+        cur.close()
+        conn.close()
         print("🔒 Connection closed.")
     except:
         pass
