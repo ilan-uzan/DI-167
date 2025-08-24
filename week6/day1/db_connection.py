@@ -3,7 +3,7 @@ from psycopg2.extras import execute_values
 import requests
 import json
 
-API_URL = "https://restcountries.com/v3.1/all"
+API_URL = "https://restcountries.com/v3.1/all?fields=name,flags`"
 
 def normalize_country(obj):
     """
