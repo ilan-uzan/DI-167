@@ -1,22 +1,66 @@
 import psycopg2
 from psycopg2.extras import execute_values
 import requests
+import time
 
-API_URL = "https://restcountries.com/v3.1/all"
+HEADERS = {"User-Agent": "countries-loader/1.0 (+https://example.com)"}
 
-def normalize_country(obj):
-    # Be flexible: fall back to cca3/ccn3 if cca2 missing
+V3_URL = "https://restcountries.com/v3.1/all"
+V3_PARAMS = {"fields": "name,capital,cca2,region,population"}
+
+V2_URL = "https://restcountries.com/v2/all"  # fallback
+
+def fetch_countries():
+    # Try v3 first
+    try:
+        r = requests.get(V3_URL, params=V3_PARAMS, headers=HEADERS, timeout=30)
+        if r.status_code == 200:
+            data = r.json()
+            assert isinstance(data, list)
+            return "v3", data
+        else:
+            print("v3 request failed:", r.status_code, r.text[:200])
+    except Exception as e:
+        print("v3 exception:", e)
+
+    # Fallback to v2
+    try:
+        time.sleep(0.5)
+        r = requests.get(V2_URL, headers=HEADERS, timeout=30)
+        if r.status_code == 200:
+            data = r.json()
+            assert isinstance(data, list)
+            return "v2", data
+        else:
+            print("v2 request failed:", r.status_code, r.text[:200])
+    except Exception as e:
+        print("v2 exception:", e)
+
+    return None, []
+
+def normalize_v3(obj):
     name = (obj.get("name") or {}).get("common")
-    cap_list = obj.get("capital") or []
-    capital = cap_list[0] if cap_list else None
-    code = obj.get("cca2") or obj.get("cca3") or (str(obj.get("ccn3")) if obj.get("ccn3") else None)
+    capital_list = obj.get("capital") or []
+    capital = capital_list[0] if capital_list else None
+    code = obj.get("cca2")
     region = obj.get("region")
     population = obj.get("population")
-
     if not name or not code:
         return None
     return (name, capital, code, region, population)
 
+def normalize_v2(obj):
+    # v2 schema differs
+    name = obj.get("name")
+    capital = obj.get("capital")
+    code = obj.get("alpha2Code")
+    region = obj.get("region")
+    population = obj.get("population")
+    if not name or not code:
+        return None
+    return (name, capital, code, region, population)
+
+# --- DB work ---
 try:
     conn = psycopg2.connect(
         database="countries",
@@ -26,6 +70,7 @@ try:
         port="5432"
     )
     cur = conn.cursor()
+
     cur.execute("""
         CREATE TABLE IF NOT EXISTS countries (
             country_id   SERIAL PRIMARY KEY,
@@ -38,26 +83,20 @@ try:
     """)
     conn.commit()
 
-    # --- fetch + debug ---
-    resp = requests.get(API_URL, timeout=30, headers={"User-Agent": "countries-loader/1.0"})
-    print("HTTP status:", resp.status_code)
-    payload = resp.json()
-    print("JSON type:", type(payload).__name__)
-    if isinstance(payload, list):
-        print("Items:", len(payload))
-        if payload:
-            print("Sample keys:", list(payload[0].keys())[:8])
-    else:
-        print("Payload keys:", list(payload.keys()))
+    source, payload = fetch_countries()
+    print(f"Source used: {source or 'none'}; items: {len(payload)}")
 
-    # transform
     rows = []
-    if isinstance(payload, list):
+    if source == "v3":
         for obj in payload:
-            mapped = normalize_country(obj)
-            if mapped: rows.append(mapped)
+            m = normalize_v3(obj)
+            if m: rows.append(m)
+    elif source == "v2":
+        for obj in payload:
+            m = normalize_v2(obj)
+            if m: rows.append(m)
 
-    print(f"🌍 Will upsert rows: {len(rows)}")
+    print(f"🌍 Prepared rows: {len(rows)}")
 
     if rows:
         upsert_sql = """
@@ -75,6 +114,11 @@ try:
 
     cur.execute("SELECT COUNT(*) FROM countries;")
     print("📦 Total rows in countries:", cur.fetchone()[0])
+
+    # sample verify
+    cur.execute("SELECT country_name, capital, flag_code FROM countries ORDER BY country_name LIMIT 10;")
+    for r in cur.fetchall():
+        print(r)
 
 except Exception as e:
     print("❌ Error:", e)
