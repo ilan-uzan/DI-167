@@ -12,19 +12,14 @@
 # Define a function named display_message().
 # This function should not take any parameters.
 
-
+def display_message():
 # Step 2: Print a Message
-
 # For example: “I am learning about functions in Python.”
-
-
+    print('I am learning about funtions in python.')
 # Step 3: Call the Function
-
+display_message()
 # This will execute the code inside the function and print your message.
-
-
 # Expected Output:
-
 # I am learning about functions in Python.
 
 
@@ -42,18 +37,14 @@
 
 # Define a function named favorite_book().
 # This function should accept one parameter called title.
-
-
+def favourite_book(title):
 # Step 2: Print a Message with the Title
 # The function needs to output a message like “One of my favorite books is <title>”.
-
-
-
+    print(f'One of my favorite books is {title} ')
 # Step 3: Call the Function with an Argument
-
 # Call the favorite_book() function and provide a book title as an argument.
 # For example: favorite_book("Alice in Wonderland").
-
+favourite_book('alice in wonderland')
 
 # 🌟 Exercise 3: Some Geography
 # Goal: Create a function that describes a city and its country.

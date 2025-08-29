@@ -27,14 +27,14 @@
 
 
 
-# MATRIX_STR = '''
-# 7ir
-# Tsi
-# h%x
-# i ?
-# sM# 
-# $a 
-# #t%'''       
+MATRIX_STR = '''
+7ir
+Tsi
+h%x
+i ?
+sM# 
+$a 
+#t%'''       
 
 
 # This represents a grid of characters, and your task is to decode the hidden message within.
@@ -49,7 +49,7 @@
 
 # Step 1: Transforming the String into a 2D List
 
-
+transform.list
 
 # Step 2: Processing Columns
 
