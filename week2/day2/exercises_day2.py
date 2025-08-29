@@ -111,28 +111,23 @@ random_compare(66)
 
 # Define a function called make_shirt().
 # This function should accept two parameters: size and text.
-
-
+def make_shirt(size='L', text='I love python'):
 # Step 2: Print a Summary Message
-
 # Set up the function to display a sentence summarizing the shirt’s size and message.
-
-
+    print(f'your shirt size is {size}, and the text written on it is {text}.')
 # Step 3: Call the Function
-
-
-
+make_shirt(size='M', text= 'I love tel aviv')
 # Step 4: Modify the Function with Default Values
-
+make_shirt()
 # Modify the make_shirt() function so that size has a default value of “large” and text has a default value of “I love Python”.
-
-
 # Step 5: Call the Function with Default and Custom Values
-
+make_shirt('small')
 # Call make_shirt() to make a large shirt with the default message.
+make_shirt()
 # Call make_shirt() to make a medium shirt with the default message.
+make_shirt('medium')
 # Call make_shirt() to make a shirt of any size with a different message.
-
+make_shirt('xl', 'this is tiring')
 
 # Step 6 (Bonus): Keyword Arguments
 
