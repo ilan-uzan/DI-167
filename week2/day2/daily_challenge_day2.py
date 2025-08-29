@@ -49,7 +49,7 @@ $a
 
 # Step 1: Transforming the String into a 2D List
 
-transform.list
+
 
 # Step 2: Processing Columns
 
