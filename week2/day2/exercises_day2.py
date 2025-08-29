@@ -70,38 +70,27 @@ describe_city('Montreal',)
 
 # 🌟 Exercise 4: Random
 # Goal: Create a function that generates random numbers and compares them.
-
 # Key Python Topics:
-
 # random module
 # random.randint() function
 # Conditional statements (if, else)
-
-
 # Step 1: Import the random Module
-
 # At the beginning of your script, use import random to access the random number generation functions.
-
-
+import random
 # Step 2: Define a Function with a Parameter
-
-# Create a function that accepts a number between 1 and 100 as a parameter.
-
-
+def random_compare(user_number):
 # Step 3: Generate a Random Number
-
+    random_number = random.randint(1, 100)
 # Inside the function, use random.randint(1, 100) to generate a random integer between 1 and 100.
-
-
 # Step 4: Compare the Numbers
-
-# If they are the same, print a success message. Otherwise, print a fail message and display both numbers.
-
-
+    if user_number == random_number:
+        print(f'Success both numbers are {user_number}')
+    else:
+        print(f'try again. your number: {user_number}. random number: {random_number}.')
 # Step 5: Call the Function
-
+random_compare(1)
 # Call the function with a number between 1 and 100.
-
+random_compare(66)
 
 # Expected Output:
 
