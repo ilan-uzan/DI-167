@@ -4,11 +4,11 @@ from menu_manager import MenuManager
 
 def prompt_price(msg: str) -> int:
     while True:
-        raw = input(msg).strip()
+        val = input(msg).strip()
         try:
-            return int(raw)
+            return int(val)
         except ValueError:
-            print("Please enter a valid integer price (e.g., 35).")
+            print("Please enter a whole number (e.g., 35).")
 
 def add_item_to_menu():
     name = input("Item name: ").strip()
@@ -17,11 +17,10 @@ def add_item_to_menu():
     if item.save():
         print("Item was added successfully.")
     else:
-        print("Error: could not add item (maybe duplicate name?).")
+        print("Error: could not add item.")
 
 def remove_item_from_menu():
     name = input("Name of item to delete: ").strip()
-    # We can delete by name without saving first
     item = MenuItem(name, 0)
     if item.delete():
         print("Item was deleted successfully.")
@@ -30,32 +29,27 @@ def remove_item_from_menu():
 
 def update_item_from_menu():
     current_name = input("Current item name: ").strip()
-    # optional: get current price (not strictly needed to locate row)
-    # current_price = prompt_price("Current item price (for reference): ")
-    new_name = input("New item name: ").strip()
-    new_price = prompt_price("New item price: ")
-
-    # Try to load existing to get its id; this makes update unambiguous.
     existing = MenuManager.get_by_name(current_name)
     if not existing:
-        print("Error: existing item not found.")
+        print("Error: item not found.")
         return
-
+    new_name = input("New item name: ").strip()
+    new_price = prompt_price("New item price: ")
     if existing.update(new_name, new_price):
         print("Item was updated successfully.")
     else:
-        print("Error: item could not be updated (possible name conflict).")
+        print("Error: item could not be updated.")
 
-def view_single_item():
+def view_item():
     name = input("Item name to view: ").strip()
-    item = MenuManager.get_by_name(name)
-    if item:
-        print(f"[#{item.id}] {item.name} — {item.price}")
+    it = MenuManager.get_by_name(name)
+    if it:
+        print(f"[#{it.id}] {it.name} — {it.price}")
     else:
         print("Item not found.")
 
 def show_restaurant_menu():
-    items = MenuManager.all_items()
+    items = MenuManager.all()
     if not items:
         print("(menu is empty)")
         return
@@ -74,19 +68,13 @@ def show_user_menu():
 (S) Show the Menu
 (Q) Quit
 """)
-        choice = input("Your choice: ").strip().lower()
-        if choice == 'a':
-            add_item_to_menu()
-        elif choice == 'd':
-            remove_item_from_menu()
-        elif choice == 'u':
-            update_item_from_menu()
-        elif choice == 'v':
-            view_single_item()
-        elif choice == 's':
-            show_restaurant_menu()
-        elif choice == 'q':
-            # show menu then exit
+        c = input("Your choice: ").strip().lower()
+        if c == 'v': view_item()
+        elif c == 'a': add_item_to_menu()
+        elif c == 'd': remove_item_from_menu()
+        elif c == 'u': update_item_from_menu()
+        elif c == 's': show_restaurant_menu()
+        elif c == 'q':
             show_restaurant_menu()
             print("Goodbye!")
             break

@@ -1,43 +1,33 @@
 # menu_item.py
 from typing import Optional
-from db import get_cursor
-import psycopg2
+from db import get_conn
 
 class MenuItem:
-    """
-    Represents a row in menu_items.
-    After save(), self.id is populated.
-    """
     def __init__(self, name: str, price: int):
         self.name = name
         self.price = price
         self.id: Optional[int] = None
 
     def save(self) -> bool:
-        """
-        Insert this item. On success set self.id and return True.
-        If name is unique and already exists, return False.
-        """
         sql = """
             INSERT INTO menu_items (item_name, item_price)
             VALUES (%s, %s)
             RETURNING item_id;
         """
         try:
-            with get_cursor() as cur:
-                cur.execute(sql, (self.name, self.price))
-                self.id = cur.fetchone()[0]
+            conn = get_conn()
+            cur = conn.cursor()
+            cur.execute(sql, (self.name, self.price))
+            self.id = cur.fetchone()[0]
+            conn.commit()
+            cur.close(); conn.close()
             return True
-        except psycopg2.Error as e:
-            # Handle duplicate (if UNIQUE constraint exists), or other db errors
-            # print(f"[save] DB error: {e}")
+        except Exception:
+            # print("Save error:", e)
             return False
 
     def delete(self) -> bool:
-        """
-        Delete this item. Prefer delete by id if present; else by name.
-        Returns True if exactly one row was deleted.
-        """
+        # prefer id if we have it; else by name
         if self.id is not None:
             sql = "DELETE FROM menu_items WHERE item_id = %s;"
             params = (self.id,)
@@ -45,15 +35,15 @@ class MenuItem:
             sql = "DELETE FROM menu_items WHERE item_name = %s;"
             params = (self.name,)
 
-        with get_cursor() as cur:
-            cur.execute(sql, params)
-            return cur.rowcount == 1
+        conn = get_conn()
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        deleted = (cur.rowcount == 1)
+        conn.commit()
+        cur.close(); conn.close()
+        return deleted
 
     def update(self, new_name: str, new_price: int) -> bool:
-        """
-        Update this item to (new_name, new_price). Use id if available; else by current name.
-        Mutates self.name/self.price on success.
-        """
         if self.id is not None:
             sql = """
                 UPDATE menu_items
@@ -69,12 +59,15 @@ class MenuItem:
             """
             params = (new_name, new_price, self.name)
 
-        with get_cursor() as cur:
-            cur.execute(sql, params)
-            ok = cur.rowcount == 1
-            if ok:
-                self.name, self.price = new_name, new_price
-            return ok
+        conn = get_conn()
+        cur = conn.cursor()
+        cur.execute(sql, params)
+        ok = (cur.rowcount == 1)
+        if ok:
+            self.name, self.price = new_name, new_price
+        conn.commit()
+        cur.close(); conn.close()
+        return ok
 
     def __repr__(self) -> str:
         return f"MenuItem(id={self.id}, name={self.name!r}, price={self.price})"
