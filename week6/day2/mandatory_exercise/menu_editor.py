@@ -1,6 +1,6 @@
 # menu_editor.py
-from menu_item import MenuItem
-from menu_manager import MenuManager
+from week6.day2.mandatory_exercise.menu_item import MenuItem
+from week6.day2.mandatory_exercise.menu_manager import MenuManager
 
 def prompt_price(msg: str) -> int:
     while True:

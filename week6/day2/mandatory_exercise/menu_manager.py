@@ -1,7 +1,7 @@
 # menu_manager.py
 from typing import List, Optional
-from db import get_conn
-from menu_item import MenuItem
+from week6.day2.mandatory_exercise.db import get_conn
+from week6.day2.mandatory_exercise.menu_item import MenuItem
 
 class MenuManager:
     @classmethod

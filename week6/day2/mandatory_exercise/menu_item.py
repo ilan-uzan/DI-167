@@ -1,6 +1,6 @@
 # menu_item.py
 from typing import Optional
-from db import get_conn
+from week6.day2.mandatory_exercise.db import get_conn
 
 class MenuItem:
     def __init__(self, name: str, price: int):
