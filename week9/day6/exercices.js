@@ -84,16 +84,16 @@ console.log(updatedUsersArray);
 //--Ilan
 
 
-🌟 Exercise 5 : Dog class
-Instructions
-Using the Dog class below:
+// 🌟 Exercise 5 : Dog class
+// Instructions
+// Using the Dog class below:
 
 class Dog {
   constructor(name) {
     this.name = name;
   }
 };
-Analyze the options below. Which constructor will successfully extend the Dog class?
+// Analyze the options below. Which constructor will successfully extend the Dog class?
   // 1
 class Labrador extends Dog {
   constructor(name, size) {
