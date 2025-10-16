@@ -23,6 +23,11 @@ let isAudioPlaying = false;
 
 // Audio controls
 function toggleAudio() {
+  if (!elements.themeAudio) {
+    console.log('Audio element not found');
+    return;
+  }
+  
   if (isAudioPlaying) {
     elements.themeAudio.pause();
     elements.audioIcon.className = 'fa-solid fa-volume-xmark';
@@ -36,7 +41,7 @@ function toggleAudio() {
 
 // Hyperspace animation
 function triggerHyperspace() {
-  // Canvas-based star streaks from center
+  // Canvas-based 3D starfield with perspective and streaks
   const canvas = document.createElement('canvas');
   canvas.className = 'hyperspace-canvas';
   const ctx = canvas.getContext('2d');
@@ -52,58 +57,85 @@ function triggerHyperspace() {
   }
   resize();
 
-  const centerX = () => window.innerWidth / 2;
-  const centerY = () => window.innerHeight / 2;
+  const cx = () => window.innerWidth / 2;
+  const cy = () => window.innerHeight / 2;
+  const fov = Math.min(window.innerWidth, window.innerHeight) * 0.8; // perspective scale
 
-  const numStars = Math.min(600, Math.floor((window.innerWidth * window.innerHeight) / 3500));
-  const stars = Array.from({ length: numStars }).map(() => {
-    const angle = Math.random() * Math.PI * 2;
-    const speed = 6 + Math.random() * 10; // px per frame base
-    const length = 6 + Math.random() * 18;
-    return {
-      angle,
-      speed,
-      length,
-      distance: 0.2 + Math.random() * 1.2,
-      opacity: 0.6 + Math.random() * 0.4
-    };
-  });
+  const count = Math.min(1200, Math.floor((window.innerWidth * window.innerHeight) / 2000));
+  function makeStar() {
+    // x,y in a unit disk for even distribution
+    const r = Math.sqrt(Math.random());
+    const theta = Math.random() * Math.PI * 2;
+    const x = r * Math.cos(theta);
+    const y = r * Math.sin(theta);
+    const z = 0.2 + Math.random() * 1.8; // depth (near -> far)
+    return { x, y, z, px: null, py: null, o: 0.7 + Math.random() * 0.3 };
+  }
+  const stars = Array.from({ length: count }, makeStar);
 
-  let start; let rafId;
-  const duration = 1100; // ms
+  let rafId; let lastTs; let startTs; let shouldStop = false;
+  const duration = 1400; // ms
 
-  function step(ts) {
-    if (!start) start = ts;
-    const elapsed = ts - start;
+  // Ease: smoother accel then slight decel
+  function easeCubic(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+
+  function render(ts) {
+    if (!startTs) startTs = ts;
+    if (!lastTs) lastTs = ts;
+    const elapsed = ts - startTs;
+    const dt = Math.min(32, ts - lastTs) / 16.67; // ~frames
+    lastTs = ts;
+
+    const t = Math.min(1, elapsed / duration);
+    const accel = 0.6 + 5.0 * easeCubic(t); // speed factor over time
 
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-    ctx.fillStyle = 'rgba(0,0,0,0.15)';
-    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+    // Subtle flash at start
+    if (elapsed < 120) {
+      const alpha = 1 - elapsed / 120;
+      ctx.fillStyle = `rgba(255,255,255,${alpha * 0.35})`;
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    }
 
     for (const s of stars) {
-      // accelerate with time to mimic warp
-      const t = Math.min(1, elapsed / duration);
-      const accel = 0.5 + 4.5 * t * t; // quadratic acceleration
-      s.distance += s.speed * accel;
+      // advance toward camera by reducing z
+      s.z -= (0.02 + 0.035 * s.o) * accel * dt;
+      if (s.z <= 0.05) {
+        // recycle star to back
+        const ns = makeStar();
+        s.x = ns.x; s.y = ns.y; s.z = ns.z; s.px = null; s.py = null; s.o = ns.o;
+      }
 
-      const x0 = centerX() + Math.cos(s.angle) * (s.distance - s.length);
-      const y0 = centerY() + Math.sin(s.angle) * (s.distance - s.length);
-      const x1 = centerX() + Math.cos(s.angle) * s.distance;
-      const y1 = centerY() + Math.sin(s.angle) * s.distance;
+      // project to screen
+      const scale = fov / s.z;
+      const x = cx() + s.x * scale;
+      const y = cy() + s.y * scale;
 
-      const grad = ctx.createLinearGradient(x0, y0, x1, y1);
-      grad.addColorStop(0, `rgba(255,255,255,0)`);
-      grad.addColorStop(1, `rgba(255,255,255,${s.opacity})`);
-      ctx.strokeStyle = grad;
-      ctx.lineWidth = Math.max(1, t * 3);
-      ctx.beginPath();
-      ctx.moveTo(x0, y0);
-      ctx.lineTo(x1, y1);
-      ctx.stroke();
+      if (s.px != null && s.py != null) {
+        const grad = ctx.createLinearGradient(s.px, s.py, x, y);
+        grad.addColorStop(0, `rgba(255,255,255,0)`);
+        grad.addColorStop(1, `rgba(255,255,255,${s.o})`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = Math.min(4, Math.max(1, (fov / (s.z + 0.001)) * 0.003));
+        ctx.beginPath();
+        ctx.moveTo(s.px, s.py);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+      }
+
+      s.px = x; s.py = y;
+    }
+
+    // Stop immediately when requested
+    if (shouldStop) {
+      cancelAnimationFrame(rafId);
+      canvas.remove();
+      return;
     }
 
     if (elapsed < duration) {
-      rafId = requestAnimationFrame(step);
+      rafId = requestAnimationFrame(render);
     } else {
       cancelAnimationFrame(rafId);
       canvas.remove();
@@ -111,7 +143,12 @@ function triggerHyperspace() {
   }
 
   window.addEventListener('resize', resize, { once: true });
-  rafId = requestAnimationFrame(step);
+  rafId = requestAnimationFrame(render);
+
+  // Return function to stop animation immediately
+  return () => {
+    shouldStop = true;
+  };
 }
 
 
@@ -199,7 +236,7 @@ async function fetchRandomCharacter() {
 
 async function fetchRandomCharacter() {
   showLoading();
-  triggerHyperspace(); // Add hyperspace effect
+  const stopHyperspace = triggerHyperspace(); // Get stop function
   
   try {
     const id = randomCharacterId();
@@ -223,6 +260,9 @@ async function fetchRandomCharacter() {
       homeworldName = 'Unknown';
     }
 
+    // Stop hyperspace animation smoothly when character loads
+    stopHyperspace();
+    
     renderCharacter({
       name: name || 'Unknown',
       height: height || 'Unknown',
@@ -231,6 +271,8 @@ async function fetchRandomCharacter() {
       homeworldName
     });
   } catch (err) {
+    // Stop hyperspace animation on error too
+    stopHyperspace();
     showError(`Failed to retrieve character. ${err.message || ''}`.trim());
   } finally {
     hideLoading();
@@ -248,9 +290,22 @@ if (elements.audioBtn) {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
+  // Debug audio element
+  console.log('Audio element:', elements.themeAudio);
+  console.log('Audio button:', elements.audioBtn);
+  
+  // Check if audio file loads
+  if (elements.themeAudio) {
+    elements.themeAudio.addEventListener('loadstart', () => console.log('Audio loading started'));
+    elements.themeAudio.addEventListener('canplay', () => console.log('Audio can play'));
+    elements.themeAudio.addEventListener('error', (e) => console.log('Audio error:', e));
+    elements.themeAudio.addEventListener('loadeddata', () => console.log('Audio data loaded'));
+  }
+  
   // Try to start audio on first user interaction
   document.addEventListener('click', function() {
     if (!isAudioPlaying && elements.themeAudio) {
+      console.log('Attempting to play audio...');
       elements.themeAudio.play().catch(e => console.log('Auto-play blocked:', e));
     }
   }, { once: true });
