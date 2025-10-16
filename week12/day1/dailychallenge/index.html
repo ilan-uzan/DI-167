@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <h1>
+                <i class="fa-solid fa-coins"></i>
+                Currency Converter
+            </h1>
+            <p class="subtitle">Convert between currencies using real-time exchange rates</p>
+        </header>
+
+        <section class="converter">
+            <div class="conversion-form">
+                <div class="amount-section">
+                    <label for="amount">Amount</label>
+                    <div class="amount-input">
+                        <input type="number" id="amount" placeholder="0.00" min="0" step="0.01" />
+                        <span class="currency-symbol" id="fromSymbol">$</span>
+                    </div>
+                </div>
+
+                <div class="currency-section">
+                    <div class="currency-selector">
+                        <label for="fromCurrency">From</label>
+                        <select id="fromCurrency">
+                            <option value="">Loading currencies...</option>
+                        </select>
+                    </div>
+
+                    <button id="switchBtn" class="switch-btn" aria-label="Switch currencies">
+                        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    </button>
+
+                    <div class="currency-selector">
+                        <label for="toCurrency">To</label>
+                        <select id="toCurrency">
+                            <option value="">Loading currencies...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button id="convertBtn" class="convert-btn">
+                    <i class="fa-solid fa-calculator"></i>
+                    Convert
+                </button>
+            </div>
+
+            <div class="result-section" id="resultSection" style="display: none;">
+                <div class="result-card">
+                    <div class="result-header">
+                        <h3>Conversion Result</h3>
+                        <span class="rate-info" id="rateInfo"></span>
+                    </div>
+                    <div class="result-content">
+                        <div class="original-amount">
+                            <span id="originalAmount">0.00</span>
+                            <span id="originalCurrency">USD</span>
+                        </div>
+                        <div class="equals">=</div>
+                        <div class="converted-amount">
+                            <span id="convertedAmount">0.00</span>
+                            <span id="convertedCurrency">EUR</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="status" aria-live="polite" aria-atomic="true">
+            <div id="loading" class="loading hidden">
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                <span id="loadingText">Loading...</span>
+            </div>
+            <div id="error" class="error hidden">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="errorMsg">Something went wrong. Please try again.</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <small>
+                Exchange rates provided by 
+                <a href="https://exchangerate-api.com/" target="_blank" rel="noreferrer noopener">ExchangeRate-API</a>
+            </small>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+    <noscript>Your browser does not support JavaScript or it is disabled.</noscript>
+</body>
+</html>
