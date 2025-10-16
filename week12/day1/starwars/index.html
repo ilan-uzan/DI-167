@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Star Wars Characters</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Orbitron:wght@600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <main class="app">
+        <header class="header">
+            <div class="logo-container">
+                <img id="starWarsLogo" src="assets/Star_Wars_Logo..png" alt="Star Wars" class="logo-img">
+            </div>
+            <div class="controls">
+                <button id="audioBtn" class="btn audio-btn" aria-label="Toggle audio">
+                    <i class="fa-solid fa-volume-high" id="audioIcon"></i>
+                </button>
+                <button id="fetchBtn" class="btn primary" aria-live="polite">
+                    <i class="fa-solid fa-shuffle"></i>
+                    Find Someone
+                </button>
+            </div>
+        </header>
+
+        <section class="status" aria-live="polite" aria-atomic="true">
+            <div id="loading" class="loading hidden">
+                <i class="fa-solid fa-jedi fa-spin"></i>
+                <span>Searching the galaxy...</span>
+            </div>
+            <div id="error" class="error hidden">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span id="errorMsg">Something went wrong. Please try again.</span>
+            </div>
+        </section>
+
+        <section class="card" id="card" role="region" aria-labelledby="name">
+            <div class="placeholder" id="placeholder">
+                <i class="fa-solid fa-person"></i>
+                <p>Click "Random Character" to begin.</p>
+            </div>
+
+            <div class="content hidden" id="content">
+                <h2 id="name" class="name">—</h2>
+                <dl class="details">
+                    <div>
+                        <dt>Height</dt>
+                        <dd id="height">—</dd>
+                    </div>
+                    <div>
+                        <dt>Gender</dt>
+                        <dd id="gender">—</dd>
+                    </div>
+                    <div>
+                        <dt>Birth Year</dt>
+                        <dd id="birthYear">—</dd>
+                    </div>
+                    <div>
+                        <dt>Homeworld</dt>
+                        <dd id="homeworld">—</dd>
+                    </div>
+                </dl>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <small>Data from <a href="https://www.swapi.tech/" target="_blank" rel="noreferrer noopener">SWAPI</a></small>
+        </footer>
+    </main>
+
+    <!-- Audio element for Star Wars theme -->
+    <audio id="themeAudio" loop preload="auto">
+        <source src="assets/Star Wars Theme song by John Williams.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="app.js"></script>
+    <noscript>Your browser does not support JavaScript or it is disabled.</noscript>
+    </body>
+    </html>
+
+
