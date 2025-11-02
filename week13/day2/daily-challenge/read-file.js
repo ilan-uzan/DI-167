@@ -1,9 +1,13 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 const path = require('path');
 
-function readData() {
-  const p = path.resolve(__dirname, 'files', 'file-data.txt');
-  return fs.readFileSync(p, 'utf8');
+async function readData() {
+  try {
+    const p = path.resolve(__dirname, 'files', 'file-data.txt');
+    return await fs.readFile(p, 'utf8');
+  } catch (err) {
+    throw new Error(`Failed to read data file: ${err.message}`);
+  }
 }
 
 module.exports = { readData };
