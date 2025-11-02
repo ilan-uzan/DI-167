@@ -1,0 +1,47 @@
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/app.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/challenge.js
+suggestions for improvement:
+- Ensure `colorful-message.js` actually uses the chalk library to add color to the message.
+- In `read-file.js`, implement the `readData` function to actually read from `file-data.txt` using the `fs` module instead of returning an empty string.
+- The `colorful` function in the main file should take the output from the colorful module.
+- The greeting should take the parameter from `challenge.js` not be hard coded.
+Correctness: 60%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/colorful-message.js
+suggestions for improvement:
+- This is a helpful module, but the task asks for multiple files and more structure to the project.
+- The file needs to be integrated into an app.js file that calls this module to properly complete the exercise.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/files/file-data.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/greeting.js
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/package-lock.json
+suggestions for improvement:
+- The submission is just the package-lock.json file. It doesn't contain any of the code required to complete the daily challenge tasks.
+- The submission should include the code for greeting.js, app.js (for task 1), colorful-message.js, app.js (for task 2), read-file.js, app.js (for task 3), and challenge.js, as described in the instructions.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/package.json
+suggestions for improvement:
+- The provided file is a package.json, which is not executable code. It defines project metadata and dependencies, but it doesn't implement any of the tasks described in the challenge.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/daily-challenge/read-file.js
+suggestions for improvement:
+- This code snippet only implements reading a file, which is only part of Task 3. It doesn't address the module system (Task 1), using an NPM module (Task 2), or the integration task (Challenge Task).
+- Consider adding error handling for cases where the file might not exist.
+- Avoid hardcoding the file path directly. Using path.join or path.resolve makes it more robust.
+Correctness: 0%
+-----
