@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const app = express();
 app.use(express.json());
 
@@ -19,24 +20,35 @@ app.get('/posts/:id', (req, res) => {
 });
 
 // POST /posts
-app.post('/posts', (req, res) => {
-  const { title, content } = req.body;
-  if (!title || !content) return res.status(400).json({ error: 'Missing title or content' });
-  const newPost = { id: posts.length ? posts[posts.length-1].id + 1 : 1, title, content };
-  posts.push(newPost);
-  res.status(201).json(newPost);
-});
+app.post(
+  '/posts',
+  [check('title').notEmpty(), check('content').notEmpty()],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    const { title, content } = req.body;
+    const newPost = { id: posts.length ? posts[posts.length - 1].id + 1 : 1, title, content };
+    posts.push(newPost);
+    res.status(201).json(newPost);
+  }
+);
 
 // PUT /posts/:id
-app.put('/posts/:id', (req, res) => {
-  const id = Number(req.params.id);
-  const post = posts.find(p => p.id === id);
-  if (!post) return res.status(404).json({ error: 'Post not found' });
-  const { title, content } = req.body;
-  post.title = title ?? post.title;
-  post.content = content ?? post.content;
-  res.json(post);
-});
+app.put(
+  '/posts/:id',
+  [check('title').optional().notEmpty(), check('content').optional().notEmpty()],
+  (req, res) => {
+    const id = Number(req.params.id);
+    const post = posts.find(p => p.id === id);
+    if (!post) return res.status(404).json({ error: 'Post not found' });
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    const { title, content } = req.body;
+    post.title = title ?? post.title;
+    post.content = content ?? post.content;
+    res.json(post);
+  }
+);
 
 // DELETE /posts/:id
 app.delete('/posts/:id', (req, res) => {
@@ -57,4 +69,8 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Blog API listening on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Blog API listening on port ${PORT}`));
+}
+
+module.exports = app;

@@ -1,4 +1,5 @@
 const express = require('express');
+const { check, validationResult } = require('express-validator');
 const app = express();
 app.use(express.json());
 
@@ -19,13 +20,22 @@ app.get('/api/books/:bookId', (req, res) => {
 });
 
 // Create
-app.post('/api/books', (req, res) => {
-  const { title, author, publishedYear } = req.body;
-  if (!title || !author || !publishedYear) return res.status(400).json({ error: 'Missing fields' });
-  const newBook = { id: books.length ? books[books.length-1].id + 1 : 1, title, author, publishedYear };
-  books.push(newBook);
-  res.status(201).json(newBook);
-});
+app.post(
+  '/api/books',
+  [check('title').notEmpty(), check('author').notEmpty(), check('publishedYear').isInt()],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+    const { title, author, publishedYear } = req.body;
+    const newBook = { id: books.length ? books[books.length - 1].id + 1 : 1, title, author, publishedYear };
+    books.push(newBook);
+    res.status(201).json(newBook);
+  }
+);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Book API running on port ${PORT}`));
+if (require.main === module) {
+  app.listen(PORT, () => console.log(`Book API running on port ${PORT}`));
+}
+
+module.exports = app;
