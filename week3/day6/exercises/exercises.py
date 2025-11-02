@@ -123,21 +123,6 @@ if __name__ == "__main__":
 # Instructions:
 
 # Using the follow code:
-
-# import json
-# sampleJson = """{ 
-#    "company":{ 
-#       "employee":{ 
-#          "name":"emma",
-#          "payable":{ 
-#             "salary":7000,
-#             "bonus":800
-#          }
-#       }
-#    }
-# }"
-
-
 # Access the nested “salary” key.
 # Add a new key “birth_date” wich value is of format “YYYY-MM-DD”, to the “employee” dictionary: "birth_date": "YYYY-MM-DD".
 # Save the modified JSON to a file.
@@ -166,3 +151,47 @@ if __name__ == "__main__":
 # Open a file in write mode ("w").
 # Use json.dump() to write the modified dictionary to the file in JSON format.
 # Use the indent parameter to make the JSON file more readable.
+
+
+import json
+
+def run_exercise_2():
+    """Solve Exercise 2: parse JSON, print salary, add birth_date, save to file."""
+    sampleJson = """{ 
+       "company":{ 
+          "employee":{ 
+             "name":"emma",
+             "payable":{ 
+                "salary":7000,
+                "bonus":800
+             }
+          }
+       }
+    }"""
+
+    # Load JSON string into Python dict
+    data = json.loads(sampleJson)
+
+    # Access nested salary
+    salary = data["company"]["employee"]["payable"]["salary"]
+    print(f"Salary found: {salary}")
+
+    # Add birth_date to employee
+    data["company"]["employee"]["birth_date"] = "1990-01-01"
+
+    # Save modified JSON to a file next to this script
+    out_path = os.path.join(os.path.dirname(__file__), "modified_employee.json")
+    try:
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+        print(f"Modified JSON saved to: {out_path}")
+    except Exception as e:
+        print(f"Error saving JSON file: {e}")
+# ...existing code...
+{ changed code }
+if __name__ == "__main__":
+    # run exercise 2 if script called with 'ex2' argument: `python exercises.py ex2`
+    if len(sys.argv) > 1 and sys.argv[1] == "ex2":
+        run_exercise_2()
+    else:
+        main()
