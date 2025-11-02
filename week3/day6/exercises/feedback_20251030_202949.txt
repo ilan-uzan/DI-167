@@ -1,0 +1,11 @@
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week3/day6/exercises/exercises.py
+suggestions for improvement:
+- Consider adding more comments to improve code clarity further, especially within the JSON exercise section.
+- The use of `sys.exit(1)` is appropriate for terminating the program on invalid input, but consider a more user-friendly approach, such as looping back to prompt the user again.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week3/day6/exercises/words.txt
+suggestions for improvement:
+- The provided text is a list of words, it does not contain any code and is, therefore, not executable. The instructions ask for Python code that performs certain operations, so a word list is not a valid answer.
+Correctness: 5.0%
+-----

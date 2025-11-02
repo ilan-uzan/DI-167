@@ -1,0 +1,13 @@
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week3/day6/exercises/exercises.py
+suggestions for improvement:
+- Consider adding more comments to the JSON exercise part.
+- For improved readability, separate the two exercises into two separate files.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week3/day6/exercises/words.txt
+suggestions for improvement:
+- The provided data is only a list of words, without code implementation of any of the exercises.
+- It does not address the Random Sentence Generator or the JSON exercise.
+- Therefore, the code has a correctness score of 0%.
+Correctness: 5.0%
+-----

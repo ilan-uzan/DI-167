@@ -1,0 +1,89 @@
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex1/products.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex1/shop.js
+suggestions for improvement:
+- The code is incomplete. It needs the `products.js` file with the product array to function correctly.
+- Add error handling to gracefully handle cases where the `products.js` file is missing or contains invalid data.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex2/app.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex2/data.js
+suggestions for improvement:
+- This code only fulfills part of Exercise 2, specifically step 2 (defining an array of objects) and step 3 (exporting the array using ES6 module syntax). It does not include the code for app.js, which is necessary to complete the exercise and calculate the average age.
+- Consider adding the app.js code to complete the exercise.
+Correctness: 50%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex3/Bye World.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex3/Hello World.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex3/fileManager.js
+suggestions for improvement:
+- Consider adding error handling (try-catch) for file operations to prevent crashes.
+- While `path.resolve` enhances robustness, ensure the input `filePath` is sanitized to prevent path traversal vulnerabilities.
+- Asynchronous versions of `readFile` and `writeFile` using `fs.readFile` and `fs.writeFile` should be used to avoid blocking the event loop.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex4/app.js
+suggestions for improvement:
+- The submission does not include the `todo.js` file, which is essential for the code to function. Without it, the `TodoList` class is undefined.
+- The submission only contains the `app.js` portion, making it incomplete.
+- Provide a full implementation of both `todo.js` and `app.js` to properly address Exercise 4.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex4/todo.js
+suggestions for improvement:
+- This code only contains the `TodoList` class definition, as specified in step 3 of Exercise 4. To complete the exercise, create an app.js file, import the `TodoList` class, create an instance, add tasks, mark some as complete, list all tasks, and run the `app.js` file.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex5/app.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex5/math.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex6/app.js
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex6/package.json
+suggestions for improvement:
+- The provided code is a `package.json` file, not the `app.js` file containing the code that utilizes the `chalk` package as instructed in Exercise 6.
+- The response only includes the project's `package.json` file, which is the configuration file for the Node.js project and doesn't demonstrate any actual code implementation using the `chalk` package.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/copy-file.js
+suggestions for improvement:
+- The code should reside inside `read-copy-file.js`, not at the root.
+- The program needs to handle potential errors (e.g., file not found).
+- The code should read content from `source.txt` and write to `destination.txt` inside the `file-explorer` directory, not copy a file from outside the specified directory.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/read-directory.js
+suggestions for improvement:
+- This code snippet doesn't implement the instructions provided in Exercise 7. It only reads the content of a directory, but it doesn't create files or copy content from one file to another. The provided code should implement copying from `source.txt` to `destination.txt`.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/source.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
