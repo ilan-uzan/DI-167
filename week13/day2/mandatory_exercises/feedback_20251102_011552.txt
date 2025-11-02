@@ -1,0 +1,104 @@
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex1/products.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex1/shop.js
+suggestions for improvement:
+- The submission contains a function `findProductByName` and some example usages, but it does not fully address Exercise 1. The exercise requires creating `products.js`, exporting an array of product objects, `shop.js`, importing the products, and calling the search function. The provided code only defines the search function in what appears to be `shop.js` and attempts to load a `products.js` file that may or may not exist.  It is missing the creation and exporting of the `products.js` file as described in the instructions.
+- The provided code attempts to handle errors when loading the `products.js` file, but it does not address the fundamental issue of not creating or properly defining the `products.js` file as required by the exercise.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex2/app.js
+suggestions for improvement:
+- Consider adding error handling for cases where the 'age' property is not a number.
+- While the code is functional, using more descriptive variable names could enhance readability, especially within the reduce function.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex2/data.js
+suggestions for improvement:
+- The provided code is only part of Exercise 2, data.js, and does not constitute a complete solution to the exercise.
+- The solution does not contain the app.js file, and hence fails to calculate and display the average age of persons.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex3/Bye World.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex3/Hello World.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex3/fileManager.js
+suggestions for improvement:
+- The code contains asynchronous file operations (`readFileAsync`, `writeFileAsync`) which weren't asked for and aren't necessary for the provided exercise.
+- The `resolveSafe` function and path validation add complexity not required by the exercise instructions, and it's not clear where the `baseDir` would be derived from.
+- Error handling could be improved by providing more context-specific messages or propagating the original error, rather than just wrapping it in a new `Error` object.  Consider logging the error as well.
+- The instructions specify commonJS syntax but you added the asynchronous version, which will require ES6 syntax to use properly. The instructions only asked for a basic implementation of the read/write file functions.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex4/app.js
+suggestions for improvement:
+- The code does not fulfill the instructions provided in exercise 4. The exercise requires creating a directory named `todoApp`, and inside it, two files: `todo.js` (containing the `TodoList` class with methods to add, complete, and list tasks, using ES6 module syntax) and `app.js` (importing and using the `TodoList` class). The given `app.js` file imports from `./todo.js`, creates a `TodoList` instance, adds tasks, marks one as complete, and lists the tasks. However, the crucial part which is the separate todo.js file defining the TodoList class is missing. So the question can not be answered correctly.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex4/todo.js
+suggestions for improvement:
+- The provided code only defines the `TodoList` class but does not include the `app.js` part which imports and uses the class. Complete `app.js` by importing the `TodoList` class from the `todo.js` module, creating an instance of the class, adding tasks, marking some as complete, and listing all tasks.
+- Consider adding error handling, for example, when the index is out of bounds in the `complete` method.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex5/app.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex5/math.js
+suggestions for improvement:
+- The code addresses a simple math module which is not directly related to any of the exercises outlined in the chapter content.
+- Consider adding input validation to prevent potential type-related errors.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex6/app.js
+suggestions for improvement:
+- This code doesn't align with any of the exercises provided in the chapter content. It demonstrates a simple greeting function and uses the chalk library, but it does not address module exports/imports, file system operations, or todo list management as required by the exercises.
+- To make this code relevant, it needs to be adapted to one of the exercises, such as using the `chalk` module within the context of a file management or todo list application.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex6/package-lock.json
+suggestions for improvement:
+- The provided code is a package-lock.json file, which is automatically generated and managed by npm. It's not intended to be written or modified manually.  It does not address the instructions provided in Exercise 6, which involved creating a project, installing the chalk package, and using it in a script.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex6/package.json
+suggestions for improvement:
+- The provided code is a `package.json` file, which describes the project and its dependencies, but doesn't fulfill the instructions of Exercise 6. The exercise requires creating an `app.js` file that uses the `chalk` package to style terminal output.
+- The submission does not contain any code demonstrating the use of the chalk package.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/copy-file.js
+suggestions for improvement:
+- The code addresses a file copying task, but it's not directly related to any of the exercises in the chapter content. The exercises cover topics like multiple exports/imports using CommonJS and ES6 syntax, file management (reading/writing files), creating a Todo list application, creating and using a custom module, simple NPM package usage and reading and copying files using file-explorer. Since this code does not directly address any of the exercises, it should receive a correctness score of 0%.
+- Consider adding more robust error handling, such as checking if the source file exists before attempting to read it.
+- For improved performance with larger files, explore using streams for copying instead of reading the entire file into memory at once.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/destination.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/read-directory.js
+suggestions for improvement:
+- The code only implements the `read-directory.js` functionality from exercise 7, and omits the `copy-file.js` part.
+- Consider adding error handling for file operations to enhance robustness.
+- Add a mechanism for specifying the directory to read files from, instead of hardcoding it to the current directory.
+Correctness: 50%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week13/day2/mandatory_exercises/ex7/source.txt
+suggestions for improvement:
+- Skipping file (too many comments or blank lines).
+Correctness: N/A%
+-----
