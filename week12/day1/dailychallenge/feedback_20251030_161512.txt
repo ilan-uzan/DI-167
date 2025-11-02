@@ -1,0 +1,16 @@
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week12/day1/dailychallenge/app.js
+suggestions for improvement:
+- No specific feedback.
+Correctness: 100%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week12/day1/dailychallenge/index.html
+suggestions for improvement:
+- The HTML code provides the structure for a currency converter, but it lacks the JavaScript logic (`app.js`) to interact with the ExchangeRate-API and perform the currency conversion.  Without the JavaScript, the HTML only sets up the user interface but doesn't fulfill the core requirements of the challenge.
+Correctness: 0%
+-----
+URL: URL: https://github.com/ilan-uzan/DI-167/blob/main/week12/day1/dailychallenge/style.css
+suggestions for improvement:
+- The CSS code is completely unrelated to the task of creating a currency converter application using Fetch API and async/await. It provides styling and layout but no functional logic for fetching data from an API or performing currency conversions.
+- The code does not implement any of the core requirements outlined in the instructions: fetching supported currencies, converting between currencies, or using the specified ExchangeRate API.
+Correctness: 0%
+-----
